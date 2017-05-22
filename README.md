@@ -1,13 +1,5 @@
 # OpenShift Keycloak Cartridge
 
-
-To create a Openshift Cartridge for Keycloak see the manual "Create new openshift keycloak version" in OneNote
-
-
-
-
-Original readme:
-
 You can build a gear using this cartridge with the following command:
 
 	rhc app create keycloak http://cartreflect-claytondev.rhcloud.com/github/keycloak/openshift-keycloak-cartridge
