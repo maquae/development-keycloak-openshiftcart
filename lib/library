@@ -4,6 +4,9 @@
 # OpenShift cartridge function and constant library.
 # Source this file in the top of the program
 
+# Read the OpenShift functions
+source ${OPENSHIFT_CARTRIDGE_SDK_BASH}
+
 # Make sure all language settings are correct
 export LANG=C
 
@@ -14,46 +17,12 @@ export PATH=/bin/:/usr/bin:${PATH}
 export JDK_MAJOR='8'
 export JDK_MINOR='121'
 
-export WILDFLY_VERSION="wildfly-10.1.0.Final"
-
-export TOMCAT_VERSION="tomcat-8.5.11"
-
-
 # Constants
-export PLANON="${OPENSHIFT_PLN_DIR}PlanonProCenter/"
-export JAVA_HOME="${PLANON}jdk/"
-export WILDFLY="${PLANON}${WILDFLY_VERSION}/"
-export WILDFLY_DEPLOY="${WILDFLY}standalone/deployments/"
-export WILDFLY_CONF="${WILDFLY}standalone/configuration/"
-export WILDFLY_BUNDLES="${WILDFLY}standalone/bundles/"
-export TOMCAT="${PLANON}${TOMCAT_VERSION}/"
-export TOMCAT_WEBAPPS="${TOMCAT}webapps/"
-export TOMCAT_CONF="${TOMCAT}conf/"
-export TOMCAT_BUNDLES="${TOMCAT}bundles/"
-export TOMCATPID="${OPENSHIFT_PLN_DIR}run/tomcat.pid"
-export WILDFLYPID="${OPENSHIFT_PLN_DIR}run/wildfly.pid"
-#
-# Needed for Tomcat, but called CATALINA
-#
-export CATALINA_PID="${TOMCATPID}"
-
-if [[ x"${version:-}" != x"" ]]
-then
-	export DOWNLOAD_FILE_JDK="jdk-${JDK_MAJOR}u${JDK_MINOR}-linux-x64.gz"
-	export DOWNLOAD_FILE_WILDFLY="${version}-wildfly.zip"
-	export DOWNLOAD_FILE_TOMCAT="${version}-tomcat.zip"
-	export DOWNLOAD_FILE_CLOUD="${version}-cloud.zip"
-fi
-
-#
+export JAVA_HOME="${OPENSHIFT_WILDFLY_DIR}jdk"
+export DOWNLOAD_FILE_JDK="jdk-${JDK_MAJOR}u${JDK_MINOR}-linux-x64.gz"
+export DOWNLOAD_FILE_KEYCLOAK="keycloak3_1_0Final.gz"
 export DOWNLOAD_LOCATION="${PLANON_ARTIFACT_URL}"
 
-#Cloudzip artifact names
-CLIENT_ARTIFACTNAME="com.planonsoftware.pcc.cockpit.cockpitclient-*.jar"
-SHARED_ARTIFACTNAME="com.planonsoftware.pcc.cockpit.sharedresourcescockpit-*.jar"
-CLOUDEXTENDEDQUERIES_ARTIFACTNAME="com.planonsoftware.pcc.cockpit.cloudextendedqueries-*.jar"
-IPBLOCKVALVE_ARTIFACTNAME="com.planonsoftware.pcc.cockpit.tomcatIpBlockValve-*.jar"
-SQLITE_ARTIFACTNAME="sqlite-jdbc-*.jar"
 
 # Return date/time in standard format
 now()
@@ -86,57 +55,19 @@ showstatus()
 	fi
 }
 
-
-share()
+createEnvVariables()
 {
-        if [[ x"${1}" = x"create" ]]
-        then
-            #
-                # Create data mount for customer
-                # Unmount with: fusermount -u ${OPENSHIFT_PLN_DIR}mount
-                #
-                # For this to work, make sure the file /etc/fuse.conf
-                # contains:
-                #               user_allow_other
-                #
-                CUSTSHARE=$(cat ${OPENSHIFT_PLN_DIR}conf/keys/share.mnt)
-	                sshfs                                                               \
-    	                -o allow_other                                                  \
-        	            -o workaround=all                                               \
-            	        -o idmap=user                                                   \
-                	    -o IdentityFile=${OPENSHIFT_PLN_DIR}conf/keys/share.priv       \
-                    	-o StrictHostKeyChecking=no                                     \
-                        -o UserKnownHostsFile=/dev/null                                 \
-                        -o reconnect                                                    \
-                        -o delay_connect                                                \
-                        -o follow_symlinks                                              \
-                        ${CUSTSHARE}                                                    \
-                        ${OPENSHIFT_PLN_DIR}mount
-                    fusermount -uz ${OPENSHIFT_PLN_DIR}mount
-                    sshfs                                                               \
-                        -o allow_other                                                  \
-                        -o workaround=all                                               \
-                        -o idmap=user                                                   \
-                        -o IdentityFile=${OPENSHIFT_PLN_DIR}conf/keys/share.priv       \
-                        -o StrictHostKeyChecking=no                                     \
-                        -o UserKnownHostsFile=/dev/null                                 \
-                        -o reconnect                                                    \
-                        -o delay_connect                                                \
-                        -o follow_symlinks                                              \
-                        ${CUSTSHARE}                                                    \
-                        ${OPENSHIFT_PLN_DIR}mount
-                showstatus "0" "mount : ${1}"
-        else
-                fusermount -u ${OPENSHIFT_PLN_DIR}mount
-        fi
+	echo $JAVA_HOME > $OPENSHIFT_WILDFLY_DIR/env/JAVA_HOME
+	echo "$JAVA_HOME/bin:$M2_HOME/bin:$OPENSHIFT_WILDFLY_DIR/bin/tools" > $OPENSHIFT_WILDFLY_DIR/env/OPENSHIFT_WILDFLY_PATH_ELEMENT
 }
+
 extract()
 {
 
 	SRC="${1}"
 	DST="${2}"
 
-	unzip -q "${SRC}" -d "${DST}" 		\
+	tar -xf "${SRC}" -C "${DST}" 		\
 	 	 
 	RC=${?}
 
@@ -173,52 +104,13 @@ extract()
 	exit ${RC}
 }
 
-getcockpitkey()
-{
-	SRC="${1}"
-	DST="${2}"
-
-	wget -q --http-user=cockpit 		\
-		--http-password=test1234 		\
-		--output-document="${DST}" 		\
-	 	 "${SRC}"
-
-	 RC=${?}
-
-	 # Check the wget exitcode. If it's 0, return to the calling
-	 # program/function. If it's NOT 0, there is some kind of error
-	 # and we cannot continue. Just exit!!
-	 case ${RC}
-	 in
-	 	0)	return 0								;;
-	 	1)	MSG="Generic error code"				;;
-	 	2)	MSG="Parse error"						;;
-	 	3)	MSG="File I/O error"					;;
-	 	4)	MSG="Network failure"					;;
-	 	5)	MSG="SSL verification failure"			;;
-	 	6)	MSG="Authentication failure"			;;
-	 	7)	MSG="Protocol error"					;;
-	 	8)	MSG="Server issued an error response"	;;
-	 	*)	MSG="Unknown error response"			;;
-	 esac
-
-     case ${RC}
-	 in
-	    0)	return 0								;;
-        *)	showstatus "${RC}" "wget: ${MSG} Cockpit ${1}"		;;
-	 esac
-	
-	exit ${RC}
-}
-
 # Get a file from the web
 getcockpit()
 {
 	SRC="${1}"
 	DST="${2}"
 
-	wget -q --header="x-cockpit-api:${PLN_COCKPIT_KEY}" \
-		--http-user=cockpit 			\
+	wget -q --http-user=cockpit 		\
 		--http-password=test1234 		\
 		--output-document="${DST}" 		\
 	 	 "${SRC}"
@@ -257,7 +149,7 @@ getartifact()
 	DST="${2}"
 
 	wget -q --output-document="${DST}" 	\
-	 	 "${DOWNLOAD_LOCATION}${version}/${SRC}"
+	 	 "${DOWNLOAD_LOCATION}keycloak/server/${SRC}"
 
 	RC=${?}
 
