@@ -16,13 +16,14 @@ createEnvVariables
 
 mkdir -p ${OPENSHIFT_WILDFLY_DIR}jdk
 mkdir -p ${OPENSHIFT_WILDFLY_DIR}versions
- 
+
 #Download and install correct JDK
 getartifact ${DOWNLOAD_FILE_JDK} ${DOWNLOAD_FILE_JDK}
 showstatus "0" "JDK downloaded"
 extract ${DOWNLOAD_FILE_JDK} ${OPENSHIFT_WILDFLY_DIR}jdk
-mv ${OPENSHIFT_WILDFLY_DIR}/jdk/jdk1.${JDK_MAJOR}.0_${JDK_MINOR} ${OPENSHIFT_WILDFLY_DIR}/jdk
-rm -f ${DOWNLOAD_FILE_JDK}
+mv ${OPENSHIFT_WILDFLY_DIR}jdk/jdk1.${JDK_MAJOR}.0_${JDK_MINOR}/* ${OPENSHIFT_WILDFLY_DIR}jdk/
+rm -rf ${OPENSHIFT_WILDFLY_DIR}/jdk/jdk1.${JDK_MAJOR}.0_${JDK_MINOR}
+rm -f ${DOWNLOAD_FILE_JDK} 
 showstatus "0" "JDK installed in ${JAVA_HOME}"
 
 #Download and move Keycloak artifact
