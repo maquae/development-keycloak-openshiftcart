@@ -13,6 +13,9 @@ ln -s ${OPENSHIFT_WILDFLY_DIR}/standalone/log ${OPENSHIFT_WILDFLY_DIR}/logs
 
 #Call library to set jave_home
 createEnvVariables
+
+mkdir -p ${OPENSHIFT_WILDFLY_DIR}jdk
+mkdir -p ${OPENSHIFT_WILDFLY_DIR}versions
  
 #Download and install correct JDK
 getartifact ${DOWNLOAD_FILE_JDK} ${DOWNLOAD_FILE_JDK}
