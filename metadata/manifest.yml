@@ -8,7 +8,7 @@ License: LGPL
 License-Url: http://www.gnu.org/copyleft/lesser.txt
 Vendor: planonsoftware
 Cartridge-Version: '1.4.0'
-Cartridge-Vendor: jboss
+Cartridge-Vendor: planonsoftware
 Categories:
   - service
   - web_framework
