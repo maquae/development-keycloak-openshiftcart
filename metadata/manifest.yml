@@ -3,7 +3,7 @@ Cartridge-Short-Name: WILDFLY
 Display-Name: Keycloak 3.1.0.Final
 Description: "Authentication and Authorization Server."
 Version: '10'
-Source-Url: https://planonsoftware.com/3.1.0.Final.zip
+Source-Url: https://github.com/maquae/development-keycloak-openshiftcart/archive/3.1.0.Final.zip
 License: LGPL
 License-Url: http://www.gnu.org/copyleft/lesser.txt
 Vendor: planonsoftware
