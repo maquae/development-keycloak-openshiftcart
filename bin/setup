@@ -38,7 +38,7 @@ LIBRARY="${LIBDIR}/library"
 
 case "$1" in
   -v|--version)
-    version="$2"
+    version="10"
 esac
 
 getcockpit    ${PLANON_COCKPIT_URL}DatabasePlane/${OPENSHIFT_APP_DNS}/server ${OPENSHIFT_WILDFLY_DIR}env/PLN_DB_SERVER

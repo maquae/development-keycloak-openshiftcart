@@ -4,7 +4,7 @@ source $OPENSHIFT_WILDFLY_DIR/lib/library
 
 case "$1" in
   -v|--version)
-    version="$2"
+    version="10"
 esac
 
 echo "$version" > "$OPENSHIFT_WILDFLY_DIR/env/OPENSHIFT_WILDFLY_VERSION"
