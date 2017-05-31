@@ -63,16 +63,20 @@ echo "$password" > $OPENSHIFT_WILDFLY_DIR/env/OPENSHIFT_KEYCLOAK_PASSWORD
 
 #update-configuration java8
 
-$OPENSHIFT_WILDFLY_DIR/bin/add-user.sh --user ${username} --password ${password}
+#$OPENSHIFT_WILDFLY_DIR/bin/add-user.sh --user ${username} --password ${password}
+
+#client_result ""
+#client_result "Keycloak administrator added.  Please make note of these credentials:"
+#client_result ""
+#client_result "   Username: $username"
+#client_result "   Password: $password"
+#client_result "   "
+#client_result ""
 
 client_result ""
-client_result "Keycloak administrator added.  Please make note of these credentials:"
+client_result "Keycloak 3.1.0 Final has been installed"
 client_result ""
-client_result "   Username: $username"
-client_result "   Password: $password"
-client_result "   "
 client_result ""
-
 
 #JBOSS_HOME=/etc/alternatives/jbossas-$version
 #pushd $OPENSHIFT_WILDFLY_DIR 1> /dev/null
