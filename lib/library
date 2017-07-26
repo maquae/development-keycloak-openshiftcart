@@ -20,7 +20,7 @@ export JDK_MINOR='121'
 # Constants
 export JAVA_HOME="${OPENSHIFT_WILDFLY_DIR}jdk"
 export DOWNLOAD_FILE_JDK="jdk-${JDK_MAJOR}u${JDK_MINOR}-linux-x64.gz"
-export DOWNLOAD_FILE_KEYCLOAK="keycloak3_2_0Final.gz"
+export DOWNLOAD_FILE_KEYCLOAK="keycloak3_2_1Final.gz"
 export DOWNLOAD_LOCATION="${PLANON_ARTIFACT_URL}"
 
 
