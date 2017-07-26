@@ -7,8 +7,6 @@ WILDFLY_PID_FILE=${OPENSHIFT_HOMEDIR}/app-root/runtime/jbossas.pid
 WILDFLY_DEPLOYMENTS_DIR=${OPENSHIFT_WILDFLY_DIR}/standalone/deployments
 SCANCONFIG=""
 
-source $WILDFLY_BIN_DIR/util
-
 cartridge_type="wildfly"
 
 # Return the deployment-scanner configuration
@@ -235,7 +233,7 @@ function build() {
 
       if [ -f ${OPENSHIFT_REPO_DIR}pom.xml ] && ! marker_present skip_maven_build
       then
-          update-configuration
+          #update-configuration
 
           export MAVEN_OPTS="$OPENSHIFT_MAVEN_XMX"
           export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
@@ -291,6 +289,7 @@ function start() {
     ${WILDFLY_BIN_DIR}/standalone.sh -b $OPENSHIFT_WILDFLY_IP -bmanagement=$OPENSHIFT_WILDFLY_IP -Dh2.bindAddress=$OPENSHIFT_WILDFLY_IP > $OPENSHIFT_WILDFLY_DIR/logs/server.log 2>&1 &
     PROCESS_ID=$!
     echo "$PROCESS_ID" > ${WILDFLY_PID_FILE}
+    export RUXIT_CLUSTER_ID=${OPENSHIFT_APP_DNS}-wildfly
 
     rc=0
     ishttpup || rc=$?
@@ -378,7 +377,7 @@ case "$1" in
   reload)          reload ;;
   tidy)            tidy ;;
   threaddump)      threaddump ;;
-  update-configuration) update-configuration;;
+  #update-configuration) update-configuration;;
   *)               exit 0
 esac
 
