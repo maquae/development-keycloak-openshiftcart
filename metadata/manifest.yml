@@ -1,0 +1,51 @@
+Name: keycloak
+Cartridge-Short-Name: PLN_KEYCLK
+Description: "Authentication and Authorization Server."
+Source-Url: https://github.com/maquae/development-keycloak-openshiftcart/archive/3.3.0.CR1.zip
+Cartridge-Version: 1.5.0
+Cartridge-Vendor: planonsoftware
+Display-Name: Keycloak 3.3.0.CR1
+Description: "Planon"
+Version: '3.3.0'
+Versions:
+- '3.3.0'
+Vendor: planonsoftware.com
+Categories:
+  - web_framework
+  - service
+  - planoncloud
+Website: http://planoncloud.com
+Help-Topics:
+  "Developer Center": http://planoncloud.com
+Cart-Data:
+Provides:
+- Keycloak3.3.0
+Subscribes:
+Scaling:
+  Min: 1
+  Max: 3
+Group-Overrides:
+Endpoints:
+  - Private-IP-Name:     IP
+    Private-Port-Name:   HTTP_PORT
+    Private-Port:        8080
+    Public-Port-Name:    HTTP_PROXY_PORT
+    Protocols:
+    - http
+    Mappings:
+    - Frontend: ''
+      Backend: ''
+      Options: { tohttps: "" }
+    - Frontend: /health
+      Backend: ''
+      Options:
+        health: true
+  - Private-IP-Name:     IP
+    Private-Port-Name: CLUSTER_PORT
+    Private-Port: 7600
+    Public-Port-Name: CLUSTER_PROXY_PORT
+  - Private-IP-Name: IP
+    Private-Port-Name: MANAGEMENT_HTTP_PORT
+    Private-Port: 9990
+Additional-Control-Actions:   
+- threaddump
