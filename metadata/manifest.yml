@@ -1,5 +1,5 @@
 Name: keycloak
-Cartridge-Short-Name: PLN_KEYCLK
+Cartridge-Short-Name: PLNKEYCLK
 Description: "Authentication and Authorization Server."
 Source-Url: https://github.com/maquae/development-keycloak-openshiftcart/archive/3.3.0.CR1.zip
 Cartridge-Version: 1.5.0
