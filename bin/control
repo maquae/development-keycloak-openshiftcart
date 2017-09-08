@@ -120,9 +120,7 @@ start()
     export RUXIT_CLUSTER_ID=${OPENSHIFT_APP_DNS}-wildfly
     ${WILDFLY_BIN_DIR}/standalone.sh -b $OPENSHIFT_WILDFLY_IP -bmanagement=$OPENSHIFT_WILDFLY_IP -Dh2.bindAddress=$OPENSHIFT_WILDFLY_IP > $OPENSHIFT_PLNKEYCLK_DIR/logs/server.log 2>&1 &
     PROCESS_ID=$!
-    echo "$PROCESS_ID" > ${WILDFLY_PID_FILE}
-    
-
+    echo "$PROCESS_ID" > ${WILDFLY_PID_FILE}   
 }
 
 stop()
