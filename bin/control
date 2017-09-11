@@ -41,26 +41,18 @@ LIBRARY="${LIBDIR}/library"
 
 
 # Check if the process is running
-# ${1} is the PID file for the app (Tomcat / Wildfly)
+# ${1} is the PID file for the app 
 isrunning() {
-	PIDFILE="${1}"
-
 	# Check for running app
-	if [[ -f "${PIDFILE}" ]]
-	then
-		running=$(/bin/ps --no-headers --pid $(<${PIDFILE}))
-		if [[ x"${running}" = x"" ]]
-		then
-			# Not running
-			return 1
-		else
-			# running
-			return 0
-		fi
-	fi
+    if [ -f "$WILDFLY_PID_FILE" ]; then
+      wfpid=$(cat $WILDFLY_PID_FILE);
+      if /bin/ps --pid $wfpid 1>&2 >/dev/null;
+      then
+        return 0
+      fi
+    fi
 
-	# No PID file. Not running
-	return 1
+    return 1
 }
 
 
