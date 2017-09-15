@@ -119,7 +119,7 @@ start()
 
 stop()
 {
-	echo "Stopping $cartridge_type cart"
+	echo "Stopping Keycloak cartridge runtime"
 
 	if isrunning; then
     	if [ -f "$WILDFLY_PID_FILE" ]; then
@@ -134,7 +134,7 @@ stop()
 
 restart()
 {
-	echo "Restarting $cartridge_type cart"
+	echo "Restarting Keycloak cartridge runtime"
 	stop 
 	sleep 5
 	start 

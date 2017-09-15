@@ -97,24 +97,23 @@ rm -f ${DOWNLOAD_FILE_KEYCLOAK}
 showstatus "0" "WildFly + Keycloak extracted"
 
 # Create additional directories required by JBOSSAS
-mkdir -p ${OPENSHIFT_HOMEDIR}/.m2
-mkdir -p ${OPENSHIFT_PLNKEYCLK_DIR}/{template,standalone/tmp,standalone/deployments,standalone/configuration,standalone/log,standalone/data}
+#mkdir -p ${OPENSHIFT_PLNKEYCLK_DIR}/{template,standalone/tmp,standalone/deployments,standalone/configuration,standalone/log,standalone/data}
 
 # Copy the version specific files up to jbossas directory
-cp -r ${OPENSHIFT_PLNKEYCLK_DIR}versions/${version}/standalone/configuration/* ${OPENSHIFT_PLNKEYCLK_DIR}standalone/configuration
-cp -r ${OPENSHIFT_PLNKEYCLK_DIR}versions/${version}/bin/* ${OPENSHIFT_PLNKEYCLK_DIR}/bin
-cp -r ${OPENSHIFT_PLNKEYCLK_DIR}versions/${version}/* ${OPENSHIFT_PLNKEYCLK_DIR}/
+#cp -r ${OPENSHIFT_PLNKEYCLK_DIR}versions/${version}/standalone/configuration/* ${OPENSHIFT_PLNKEYCLK_DIR}standalone/configuration
+#cp -r ${OPENSHIFT_PLNKEYCLK_DIR}versions/${version}/bin/* ${OPENSHIFT_PLNKEYCLK_DIR}/bin
+#cp -r ${OPENSHIFT_PLNKEYCLK_DIR}versions/${version}/* ${OPENSHIFT_PLNKEYCLK_DIR}/
 
 # Initialize the JBoss CLI history file
 [ -f ${OPENSHIFT_HOMEDIR}/.jboss-cli-history ] || touch ${OPENSHIFT_HOMEDIR}/.jboss-cli-history
 
-mkdir -p $OPENSHIFT_PLNKEYCLK_DIR/jboss_cfg_backup
-cp -n ${OPENSHIFT_PLNKEYCLK_DIR}/versions/${version}/standalone/configuration/standalone.xml $OPENSHIFT_PLNKEYCLK_DIR/jboss_cfg_backup/standalone.xml
+#mkdir -p $OPENSHIFT_PLNKEYCLK_DIR/jboss_cfg_backup
+#cp -n ${OPENSHIFT_PLNKEYCLK_DIR}/versions/${version}/standalone/configuration/standalone.xml $OPENSHIFT_PLNKEYCLK_DIR/jboss_cfg_backup/standalone.xml
 
 shopt -s dotglob
-cp -r ${OPENSHIFT_PLNKEYCLK_DIR}/versions/${version}/template/* ${OPENSHIFT_PLNKEYCLK_DIR}/template
-cp -r ${OPENSHIFT_PLNKEYCLK_DIR}/versions/${version}/template/.openshift ${OPENSHIFT_PLNKEYCLK_DIR}/template
-cp ${OPENSHIFT_PLNKEYCLK_DIR}/standalone/configuration/standalone.xml ${OPENSHIFT_PLNKEYCLK_DIR}/template/.openshift/config/standalone.xml
+#cp -r ${OPENSHIFT_PLNKEYCLK_DIR}/versions/${version}/template/* ${OPENSHIFT_PLNKEYCLK_DIR}/template
+#cp -r ${OPENSHIFT_PLNKEYCLK_DIR}/versions/${version}/template/.openshift ${OPENSHIFT_PLNKEYCLK_DIR}/template
+#cp ${OPENSHIFT_PLNKEYCLK_DIR}/standalone/configuration/standalone.xml ${OPENSHIFT_PLNKEYCLK_DIR}/template/.openshift/config/standalone.xml
 
 sed -i "s/{APP_NAME}/${OPENSHIFT_APP_NAME}/g" ${OPENSHIFT_PLNKEYCLK_DIR}/template/pom.xml
 
