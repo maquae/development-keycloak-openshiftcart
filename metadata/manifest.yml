@@ -35,7 +35,7 @@ Endpoints:
     Mappings:
     - Frontend: ''
       Backend: ''
-      Options: { tohttps: "" }
+      Options: { tohttps: '' }
     - Frontend: /health
       Backend: ''
       Options:
