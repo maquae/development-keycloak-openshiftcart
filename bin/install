@@ -72,8 +72,6 @@ esac
 
 echo "$version" > "$OPENSHIFT_PLNKEYCLK_DIR/env/OPENSHIFT_WILDFLY_VERSION"
 
-ln -s ${OPENSHIFT_PLNKEYCLK_DIR}/versions/11/standalone/log ${OPENSHIFT_PLNKEYCLK_DIR}/logs
-
 #Call library to set jave_home
 createEnvVariables
 
@@ -95,6 +93,8 @@ showstatus "0" "WildFly + Keycloak downloaded"
 extract ${DOWNLOAD_FILE_KEYCLOAK} ${OPENSHIFT_PLNKEYCLK_DIR}versions/
 rm -f ${DOWNLOAD_FILE_KEYCLOAK}
 showstatus "0" "WildFly + Keycloak extracted"
+
+ln -s ${OPENSHIFT_PLNKEYCLK_DIR}/versions/11/standalone/log ${OPENSHIFT_PLNKEYCLK_DIR}/logs
 
 # Create additional directories required by JBOSSAS
 #mkdir -p ${OPENSHIFT_PLNKEYCLK_DIR}/{template,standalone/tmp,standalone/deployments,standalone/configuration,standalone/log,standalone/data}
