@@ -94,6 +94,7 @@ extract ${DOWNLOAD_FILE_KEYCLOAK} ${OPENSHIFT_PLNKEYCLK_DIR}versions/
 rm -f ${DOWNLOAD_FILE_KEYCLOAK}
 showstatus "0" "WildFly + Keycloak extracted"
 
+mkdir ${OPENSHIFT_PLNKEYCLK_DIR}/versions/11/standalone/log
 ln -s ${OPENSHIFT_PLNKEYCLK_DIR}/versions/11/standalone/log ${OPENSHIFT_PLNKEYCLK_DIR}/logs
 
 # Create additional directories required by JBOSSAS
