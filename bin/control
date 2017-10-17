@@ -154,7 +154,7 @@ tidy()
 {
 	client_message "Emptying log dir: $OPENSHIFT_WILDFLY_LOG_DIR"
   shopt -s dotglob
-  rm -rf $$OPENSHIFT_PLNKEYCLK_DIR/logs/*
+  rm -rf $OPENSHIFT_PLNKEYCLK_DIR/logs/*
 }
 
 catchall()
