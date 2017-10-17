@@ -72,7 +72,7 @@ esac
 
 echo "$version" > "$OPENSHIFT_PLNKEYCLK_DIR/env/OPENSHIFT_WILDFLY_VERSION"
 
-ln -s ${OPENSHIFT_PLNKEYCLK_DIR}/standalone/log ${OPENSHIFT_PLNKEYCLK_DIR}/logs
+ln -s ${OPENSHIFT_PLNKEYCLK_DIR}/versions/11/standalone/log ${OPENSHIFT_PLNKEYCLK_DIR}/logs
 
 #Call library to set jave_home
 createEnvVariables
