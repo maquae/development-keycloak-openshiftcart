@@ -23,7 +23,7 @@ export JDK_MINOR='141'
 # Constants
 export JAVA_HOME="${OPENSHIFT_PLNKEYCLK_DIR}jdk"
 export DOWNLOAD_FILE_JDK="jdk-${JDK_MAJOR}u${JDK_MINOR}-linux-x64.gz"
-export DOWNLOAD_FILE_KEYCLOAK="keycloak3_4_0Final.gz"
+export DOWNLOAD_FILE_KEYCLOAK="keycloak3_4_2Final.gz"
 export DOWNLOAD_LOCATION="${PLANON_ARTIFACT_URL}"
 export WILDFLY_BIN_DIR="${OPENSHIFT_PLNKEYCLK_DIR}versions/11/bin"
 export WILDFLY_PID_FILE="${OPENSHIFT_HOMEDIR}/app-root/runtime/jbossas.pid"
