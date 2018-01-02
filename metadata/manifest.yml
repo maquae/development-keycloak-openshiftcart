@@ -2,7 +2,7 @@ Name: keycloak
 Cartridge-Short-Name: PLNKEYCLK
 Description: "Authentication and Authorization Server."
 Source-Url: https://github.com/maquae/development-keycloak-openshiftcart/archive/3.4.2.Final.zip
-Cartridge-Version: 1.5.0
+Cartridge-Version: 1.5.1
 Cartridge-Vendor: planonsoftware
 Display-Name: Keycloak 3.4.2.Final
 Description: "Planon"
@@ -13,7 +13,7 @@ Vendor: planonsoftware.com
 Categories:
   - web_framework
   - service
-  - planoncloud
+  - java
 Website: http://planoncloud.com
 Help-Topics:
   "Developer Center": http://planoncloud.com
